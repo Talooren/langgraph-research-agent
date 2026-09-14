@@ -1,0 +1,274 @@
+[
+  {
+    "id": 0,
+    "project": "Elina",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/elina",
+    "heading": "Введение",
+    "text": "Elina — Персональный AI-ассистент\n\nTelegram-бот с «характером»: голосовые сообщения (ElevenLabs), генерация фото (fal.ai), распознавание речи (Deepgram), trust-логика 0–6, fallback-цепочки и memory-слой."
+  },
+  {
+    "id": 1,
+    "project": "Elina",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/elina",
+    "heading": "Обзор",
+    "text": "Персональный AI-ассистент в Telegram с «живым» характером. Поддерживает голосовое общение (TTS через ElevenLabs/Fish Audio, STT через Deepgram/Whisper), генерацию изображений (fal.ai Seedream, Flux Kontext), долговременную память (SQLite) и trust-матрицу доверия 0–6. Развёрнут на VPS (Docker, docker-compose). Включает экспериментального второго агента Aiden (Instagram/Twitter)."
+  },
+  {
+    "id": 2,
+    "project": "Elina",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/elina",
+    "heading": "Структура",
+    "text": "| Модуль | Назначение |\n|---|---|\n| `brain/` | Основной агент: диалоги, trust-логика, фото-запросы, fallback-цепочки |\n| `voice/` | TTS (ElevenLabs, Fish Audio) + STT (Deepgram, Whisper) + голосовой кэш |\n| `memory/` | SQLite-слой для долговременной памяти |\n| `soul/` | SOUL.md (ядро личности) + trust_levels.json (матрица доверия) |\n| `aiden/` | Экспериментальный второй агент (Instagram/Twitter) |\n\nМодуль `eyes/` (генерация изображений через fal.ai Seedream 4.5, ComfyUI, InstantID, LoRA) исключён из репозитория. Для запуска потребуется восстановить этот модуль отдельно."
+  },
+  {
+    "id": 3,
+    "project": "Elina",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/elina",
+    "heading": "Безопасность",
+    "text": "Секреты (.env, API-ключи) не включены в репозиторий."
+  },
+  {
+    "id": 4,
+    "project": "Elina",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/elina",
+    "heading": "Технологический стек",
+    "text": "- Python 3.10+, aiogram 3.x, aiohttp\n- Anthropic Claude (AsyncAnthropic)\n- ElevenLabs TTS, Deepgram STT, Groq\n- fal.ai (Seedream, Flux Kontext)\n- Docker, docker-compose\n- SQLite (memory), trust-матрица 0–6"
+  },
+  {
+    "id": 5,
+    "project": "Elina",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/elina",
+    "heading": "Документация",
+    "text": "- `ARCHITECTURE.md` — архитектура проекта\n- `SOUL.md` — ядро личности\n- `CHANGELOG_2026-05-17.md` — история изменений"
+  },
+  {
+    "id": 6,
+    "project": "Elina",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/elina",
+    "heading": "Статус",
+    "text": "🟡 Архивный снапшот кода для демонстрации архитектуры. Проект в стадии активного рефакторинга.\n\n---\n\n*Последнее обновление: 2026-09-13*"
+  },
+  {
+    "id": 7,
+    "project": "TradeBot Backtest",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "Введение",
+    "text": "TradeBot Backtest — Алгоритмический трейдинг на Bybit\n\nПолноценный бэктест и торговый бот для Bybit Spot: стратегии S500/Supertrend/MR, walk-forward оптимизация, paper/live режимы, фильтры входа и Telegram-оповещения."
+  },
+  {
+    "id": 8,
+    "project": "TradeBot Backtest",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "Обзор",
+    "text": "Торговый бот для Bybit Spot с полноценным бэктестом и live-исполнением. Поддерживает стратегии S500, S51 Supertrend, S50, MR, D1 veto и F&G sentiment gate. Включает walk-forward оптимизацию, фильтры входа (HTF Gate 1H MA50>MA200, LTF ATR%/MA20 distance, CHOP/TREND), управление рисками (risk 0,3% на сделку, max 1 позиция, daily loss limit) и Telegram-оповещения. Развёрнут на VPS (Docker, docker-compose, systemd). Работает в двух режимах: PAPER (симуляция) и LIVE (реальные ордера)."
+  },
+  {
+    "id": 9,
+    "project": "TradeBot Backtest",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "Структура",
+    "text": "| Модуль | Назначение |\n|---|---|\n| `main.py` | Точка входа, Telegram-бот (start/stop/status) |\n| `config.py` | Конфигурация из .env |\n| `core/router.py` | Логика входа/выхода, SL/TP, position sizing |\n| `core/indicators.py` | Технические индикаторы (MA, ATR, ADX, RSI, CI) |\n| `core/breadth_gate.py` | Режим рынка (CHOP/TREND) |\n| `core/bounce_prob.py` | Near-SL Guard — защита от срабатывания стопа (C17-A) |\n| `core/d1_watchlist.py` | D1-сканер для weekly watchlist (C17-B) |\n| `live/spot_loop.py` | Основной цикл SpotV2 (C16+) |\n| `live/exchange.py` | Адаптер биржи (paper/live) |\n| `live/bybit_feed.py` | Bybit OHLCV-фид |\n| `live/state.py` | PaperState: позиции, стейт, breadth gate |\n| `tg/bot.py` | Telegram-бот: handlers, callbacks, меню |\n| `strategies/` | Стратегии (S500, S51, S50, MR и др.) |\n| `tests/` | Тесты (pytest) |\n| `scripts/` | Скрипты (backtest, deploy, analysis) |\n| `reports/` | Отчёты (PDF, Excel) |\n| `logs/` | Логи (events.log, trades.csv, diagnostics.jsonl) |"
+  },
+  {
+    "id": 10,
+    "project": "TradeBot Backtest",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "Безопасность",
+    "text": "Секреты (.env, API-ключи) не включены в репозиторий."
+  },
+  {
+    "id": 11,
+    "project": "TradeBot Backtest",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "Технологический стек",
+    "text": "- **Язык:** Python 3.11+\n- **Telegram:** aiogram 3.x\n- **Трейдинг:** ccxt, pybit, Bybit API\n- **Аналитика:** Pandas, NumPy, SciPy (walk-forward)\n- **Инфраструктура:** Docker, docker-compose, systemd, VPS (Ubuntu)\n- **Деплой:** GitHub → VPS (bash-скрипты)"
+  },
+  {
+    "id": 12,
+    "project": "TradeBot Backtest",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "Документация",
+    "text": "- `QUICK_START.md` — быстрый старт (запуск, команды, сценарии)\n- `DEPLOY.md` — SOP деплоя (VPS, GitHub, rollback)\n- `RUNBOOK.md` — руководство по эксплуатации\n- `ARCHITECTURE.md` — архитектура SpotV2 Loop (C16+)\n- `STRATEGY_REPORT.md` — отчёт по стратегиям\n- `TESTING_CHECKLIST_FINAL.md` — чеклист тестирования\n- `docs/FEATURE_CATALOG_RU.md` — каталог фич\n- `CHANGES_SUMMARY.md` — история изменений"
+  },
+  {
+    "id": 13,
+    "project": "TradeBot Backtest",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "Статус",
+    "text": "✅ Рабочий продукт (paper/live режимы, reports, логи, деплой-скрипты, Telegram-оповещения). C17-фичи: Near-SL Guard, Weekly D1 Watchlist.\n\n---\n\n*Последнее обновление: 2026-09-13*"
+  },
+  {
+    "id": 14,
+    "project": "TradeBot Backtest",
+    "doc_type": "ARCHITECTURE",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "Data Feed",
+    "text": "- live/bybit_feed.py\n  Получает OHLCV с Bybit Spot через pybit (HTTP). Возвращает DataFrame с UTC-индексом, колонки:\n  open, high, low, close, volume. Символы в формате \"BTC/USDT\" (преобразует в \"BTCUSDT\" для API)."
+  },
+  {
+    "id": 15,
+    "project": "TradeBot Backtest",
+    "doc_type": "ARCHITECTURE",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "Indicators",
+    "text": "- core/indicators.py\n  Adds indicators: ma20, ma50, ma100, ma200, ma_trend, ma_rem, z, atr14, atr_ma, adx, etc."
+  },
+  {
+    "id": 16,
+    "project": "TradeBot Backtest",
+    "doc_type": "ARCHITECTURE",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "Strategy / Router",
+    "text": "- core/router.py\n  All trading logic: regime detection, entries, exits, position management.\n  Produces trades DataFrame."
+  },
+  {
+    "id": 17,
+    "project": "TradeBot Backtest",
+    "doc_type": "ARCHITECTURE",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "Backtest",
+    "text": "- scripts/backtest_with_blocks.py\n  Загружает свечи (Bybit) → добавляет индикаторы → запускает роутер → выводит статистику.\n  Логики стратегии здесь нет."
+  },
+  {
+    "id": 18,
+    "project": "TradeBot Backtest",
+    "doc_type": "ARCHITECTURE",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "Replay / Live",
+    "text": "- live/replay_step.py, live/replay.py\n  Покадровая симуляция (та же логика, что и в live).\n- live/exchange.py\n  Адаптер биржи (paper/live)."
+  },
+  {
+    "id": 19,
+    "project": "TradeBot Backtest",
+    "doc_type": "ARCHITECTURE",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "Telegram",
+    "text": "- tg/bot.py\n  UI + control (start/stop/status), no trading logic.\n\n---"
+  },
+  {
+    "id": 20,
+    "project": "TradeBot Backtest",
+    "doc_type": "ARCHITECTURE",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "Main Loop: live/spot_loop.py",
+    "text": "Entry point: `spot_v2_loop()`. Runs every `poll_seconds` (60s default).\n\n**Per-tick flow:**\n1. Universe refresh (every 10 min) — fetch + rank symbols\n2. Top Movers scan (every 5 min) — detect fast movers\n3. Breadth Gate (every 5 min) — measure market breadth\n4. Symbol loop:\n   a. Fetch 5m OHLCV + add indicators\n   b. Compute risk multipliers (chop × breadth × sl_streak × news)\n   c. Backfill missed candles (exits only)\n   d. Mark-to-market + HOLD logic\n   e. **Near-SL Guard** (C17-A): check if close approaches SL → TG dialog\n   f. Drain external queue (TV webhook + /pair)\n   g. Apply pending decision (CONFIRM/REJECT)\n   h. **Scout check** (C17-B): reduce risk_pct if near D1 support\n   i. Router step: run strategy logic (entries/exits)\n   j. Process new events (TP, SL, entry fills)"
+  },
+  {
+    "id": 21,
+    "project": "TradeBot Backtest",
+    "doc_type": "ARCHITECTURE",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "Config: SpotV2Config (live/spot_loop.py)",
+    "text": "All feature flags and parameters. Runtime overrides via `logs/runtime_cfg.json`."
+  },
+  {
+    "id": 22,
+    "project": "TradeBot Backtest",
+    "doc_type": "ARCHITECTURE",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "State: live/state.py (PaperState)",
+    "text": "- `positions` — open positions (multi-pos support)\n- `entry_intents` — pending LIMIT-INTENT orders\n- `weekly_watchlist` — D1 watchlist candidates (C17-B)\n- `sl_guard_pending/event/decision` — Near-SL Guard state (C17-A)\n- `breadth_snapshot/regime` — BreadthGate state\n- `wake_event` — async event for loop wakeup\n\n---"
+  },
+  {
+    "id": 23,
+    "project": "TradeBot Backtest",
+    "doc_type": "ARCHITECTURE",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "Near-SL Guard (C17-A)",
+    "text": "- **Files:** `core/bounce_prob.py`, `live/spot_loop.py` (≈line 1273), `live/state.py`, `tg/bot.py`\n- **Purpose:** When price approaches SL (< 0.5 ATR), prompt user: widen SL or close.\n- **Key params:** `sl_guard_enabled`, `sl_guard_trigger_atr=0.5`, `sl_guard_timeout_sec=90`\n- **Enable:** `runtime_cfg.json` → `\"sl_guard_enabled\": true`\n- **Tests:** `tests/test_sl_guard.py`"
+  },
+  {
+    "id": 24,
+    "project": "TradeBot Backtest",
+    "doc_type": "ARCHITECTURE",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "Weekly D1 Watchlist (C17-B)",
+    "text": "- **Files:** `core/d1_watchlist.py`, `live/spot_loop.py` (`_d1_watchlist_loop()`), `tg/bot.py` (`/watchlist`)\n- **Purpose:** Background D1 scanner builds a ranked list of trending coins for scout entries.\n- **Key params:** `weekly_watchlist_enabled`, `weekly_scan_interval_sec=14400`, `scout_risk_pct=0.0007`\n- **Enable:** `runtime_cfg.json` → `\"weekly_watchlist_enabled\": true`\n- **Output:** `logs/watchlist_weekly.json`"
+  },
+  {
+    "id": 25,
+    "project": "TradeBot Backtest",
+    "doc_type": "ARCHITECTURE",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "Feature Catalog",
+    "text": "- **File:** `docs/FEATURE_CATALOG_RU.md` — full Russian-language catalog of all features\n\n---"
+  },
+  {
+    "id": 26,
+    "project": "TradeBot Backtest",
+    "doc_type": "ARCHITECTURE",
+    "repo_url": "https://github.com/Talooren/tradebot-backtest",
+    "heading": "Critical Files Reference",
+    "text": "| File | Role |\n|---|---|\n| `live/spot_loop.py` | Main loop, SpotV2Config, all feature orchestration |\n| `core/router.py` | Entry/exit logic, SL/TP computation, position sizing |\n| `core/indicators.py` | Technical indicators (MA, ATR, ADX, RSI, CI) |\n| `core/bounce_prob.py` | P(bounce) calc for Near-SL Guard (C17-A) |\n| `core/d1_watchlist.py` | D1 scanner for weekly watchlist (C17-B) |\n| `core/diagnostics.py` | Structured JSONL event logging |\n| `core/breadth_gate.py` | Market breadth (% coins rising) |\n| `core/chop_filter.py` | CHOP/TREND regime detection |\n| `live/bybit_feed.py` | Bybit OHLCV feed (spot klines через pybit) |\n| `live/bybit_universe.py` | Bybit universe scanner (ранжировка по объёму) |\n| `live/state.py` | PaperState dataclass (all runtime state) |\n| `tg/bot.py` | Telegram bot: handlers, callbacks, menus |\n| `logs/runtime_cfg.json` | Runtime config overrides (hot-reload) |\n| `logs/diagnostics.jsonl` | Structured event log (JSONL) |\n| `logs/live_trades.csv` | Trade history CSV |"
+  },
+  {
+    "id": 27,
+    "project": "TaskFlow Scheduler Bot",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/taskflow_scheduler_bot",
+    "heading": "Введение",
+    "text": "TaskFlow Scheduler Bot v2\n\nTelegram-бот для ручной публикации задач из Airtable в Telegram-группу: загрузка, назначение исполнителей, сдача результатов, уведомления о простое."
+  },
+  {
+    "id": 28,
+    "project": "TaskFlow Scheduler Bot",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/taskflow_scheduler_bot",
+    "heading": "Обзор",
+    "text": "- **Источник задач:** Airtable (REST API)\n- **Интеграция:** PostgreSQL (asyncpg), Redis (redis.asyncio)\n- **Режимы:** TEST_MODE и PRODUCTION\n- **Оповещения:** Telegram (aiogram 3.x)\n- **Статус:** 🟢 Рабочий продукт (полный README, продакшн-чеклист, сценарий тестирования)\n\n---"
+  },
+  {
+    "id": 29,
+    "project": "TaskFlow Scheduler Bot",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/taskflow_scheduler_bot",
+    "heading": "Структура",
+    "text": "```\ntaskflow_scheduler_bot/\n├── run.py               # Точка входа\n├── .env                 # Конфигурация (исключён из Git)\n├── requirements.txt     # Зависимости\n├── docs/                # Документация (см. ниже)\n├── app/\n│   ├── config.py        # Конфигурация из .env\n│   ├── db.py            # PostgreSQL (asyncpg)\n│   ├── cache.py         # Redis\n│   ├── airtable.py      # Airtable REST API\n│   ├── scheduler.py     # check_stale (1 мин)\n│   ├── utils.py         # Утилиты\n│   ├── keyboards.py     # Inline-клавиатуры\n│   └── handlers/\n│       ├── common.py    # /start, /status, /test_*\n│       ├── moderator.py # Панель, publish, accept/reject\n│       ├── reactions.py # message_reaction\n│       └── executor.py  # ЛС исполнителя, медиа\n└── logs/                # Логи (events.log)\n```\n\n---"
+  },
+  {
+    "id": 30,
+    "project": "TaskFlow Scheduler Bot",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/taskflow_scheduler_bot",
+    "heading": "Безопасность",
+    "text": "- `.env` исключён из Git — API-ключи через Docker `env_file` или локальный `.env`\n- MODERATOR_IDS — whitelist модераторов по ID\n- TEST_MODE — изоляция тестовых данных\n\n---"
+  },
+  {
+    "id": 31,
+    "project": "TaskFlow Scheduler Bot",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/taskflow_scheduler_bot",
+    "heading": "Технологический стек",
+    "text": "- **Язык:** Python 3.11+\n- **Telegram:** aiogram 3.x\n- **Бэкенд:** aiohttp (Airtable), asyncpg (PostgreSQL), redis.asyncio (Redis)\n- **Планировщик:** APScheduler 3.x (check_stale)\n- **Инфра:** Docker, docker-compose\n\n---"
+  },
+  {
+    "id": 32,
+    "project": "TaskFlow Scheduler Bot",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/taskflow_scheduler_bot",
+    "heading": "Документация",
+    "text": "| Файл | Назначение |\n|------|-----------|\n| `DEPLOY_NOTES.md` | Деплой-опера |\n| `OPS_GUIDE.md` | Руководство по эксплуатации |\n| `AUDIT_REPORT.md` | Аудит безопасности |\n| `SCENARIO.md` | Сценарий тестирования |\n| `TODO.md` | Бэклог задач |\n\n---"
+  },
+  {
+    "id": 33,
+    "project": "TaskFlow Scheduler Bot",
+    "doc_type": "README",
+    "repo_url": "https://github.com/Talooren/taskflow_scheduler_bot",
+    "heading": "Статус",
+    "text": "✅ **Рабочий продукт**\n- Загрузка задач из Airtable\n- Публикация по кнопке\n- Назначение исполнителей (реакция в группе)\n- Сдача результатов (Telegram ЛС)\n- Уведомления о простое (30 мин)\n- Поддержка медиа (фото/видео/документы)\n- TEST_MODE для тестирования\n\n❌ **Требуется**\n- Агрегация OPS_GUIDE в README (при необходимости)\n- Обновление чеклистов\n\n---\n\n*Последнее обновление: 2026-09-13*"
+  }
+]
