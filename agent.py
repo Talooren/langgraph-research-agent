@@ -22,6 +22,9 @@ LangGraph Research Agent — мини-агент, отвечающий на во
 Ключ читается только из переменной окружения / .env — никогда не хардкодится
 и не появляется в записанном трейсе выполнения.
 """
+from dotenv import load_dotenv
+load_dotenv()  # Загружает переменные из .env в окружение ДО всего остального
+
 import json
 import os
 import sys
