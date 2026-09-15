@@ -1,0 +1,123 @@
+{
+  "question": "Как работает Near-SL Guard в TradeBot?",
+  "search_queries": [
+    "near-sl guard",
+    "TradeBot Bybit",
+    "стоп-лосс защита"
+  ],
+  "search_results": [
+    {
+      "query": "TradeBot Bybit",
+      "project": "TradeBot Backtest",
+      "doc_type": "README",
+      "heading": "Введение",
+      "text": "TradeBot Backtest — Алгоритмический трейдинг на Bybit\n\nПолноценный бэктест и торговый бот для Bybit Spot: стратегии S500/Supertrend/MR, walk-forward оптимизация, paper/live режимы, фильтры входа и Telegram-оповещения.",
+      "score": 0.354
+    },
+    {
+      "query": "near-sl guard",
+      "project": "TradeBot Backtest",
+      "doc_type": "ARCHITECTURE",
+      "heading": "Near-SL Guard (C17-A)",
+      "text": "- **Files:** `core/bounce_prob.py`, `live/spot_loop.py` (≈line 1273), `live/state.py`, `tg/bot.py`\n- **Purpose:** When price approaches SL (< 0.5 ATR), prompt user: widen SL or close.\n- **Key params:** `sl_guard_enabled`, `sl_guard_trigger_atr=0.5`, `sl_guard_timeout_sec=90`\n- **Enable:** `runtime_cfg.json` → `\"sl_guard_enabled\": true`\n- **Tests:** `tests/test_sl_guard.py`",
+      "score": 0.336
+    },
+    {
+      "query": "near-sl guard",
+      "project": "TradeBot Backtest",
+      "doc_type": "README",
+      "heading": "Статус",
+      "text": "✅ Рабочий продукт (paper/live режимы, reports, логи, деплой-скрипты, Telegram-оповещения). C17-фичи: Near-SL Guard, Weekly D1 Watchlist.\n\n---\n\n*Последнее обновление: 2026-09-13*",
+      "score": 0.304
+    },
+    {
+      "query": "near-sl guard",
+      "project": "TradeBot Backtest",
+      "doc_type": "ARCHITECTURE",
+      "heading": "State: live/state.py (PaperState)",
+      "text": "- `positions` — open positions (multi-pos support)\n- `entry_intents` — pending LIMIT-INTENT orders\n- `weekly_watchlist` — D1 watchlist candidates (C17-B)\n- `sl_guard_pending/event/decision` — Near-SL Guard state (C17-A)\n- `breadth_snapshot/regime` — BreadthGate state\n- `wake_event` — async event for loop wakeup\n\n---",
+      "score": 0.22
+    },
+    {
+      "query": "TradeBot Bybit",
+      "project": "TradeBot Backtest",
+      "doc_type": "ARCHITECTURE",
+      "heading": "Backtest",
+      "text": "- scripts/backtest_with_blocks.py\n  Загружает свечи (Bybit) → добавляет индикаторы → запускает роутер → выводит статистику.\n  Логики стратегии здесь нет.",
+      "score": 0.098
+    },
+    {
+      "query": "TradeBot Bybit",
+      "project": "TradeBot Backtest",
+      "doc_type": "ARCHITECTURE",
+      "heading": "Critical Files Reference",
+      "text": "| File | Role |\n|---|---|\n| `live/spot_loop.py` | Main loop, SpotV2Config, all feature orchestration |\n| `core/router.py` | Entry/exit logic, SL/TP computation, position sizing |\n| `core/indicators.py` | Technical indicators (MA, ATR, ADX, RSI, CI) |\n| `core/bounce_prob.py` | P(bounce) calc for Near-SL Guard (C17-A) |\n| `core/d1_watchlist.py` | D1 scanner for weekly watchlist (C17-B) |\n| `core/diagnostics.py` | Structured JSONL event logging |\n| `core/breadth_gate.py` | Market breadth (% coins rising) |\n| `core/chop_filter.py` | CHOP/TREND regime detection |\n| `live/bybit_feed.py` | Bybit OHLCV feed (spot klines через pybit) |\n| `live/bybit_universe.py` | Bybit universe scanner (ранжировка по объёму) |\n| `live/state.py` | PaperState dataclass (all runtime state) |\n| `tg/bot.py` | Telegram bot: handlers, callbacks, menus |\n| `logs/runtime_cfg.json` | Runtime config overrides (hot-reload) |\n| `logs/diagnostics.jsonl` | Structured event log (JSONL) |\n| `logs/live_trades.csv` | Trade history CSV |",
+      "score": 0.074
+    },
+    {
+      "query": "стоп-лосс защита",
+      "project": "TradeBot Backtest",
+      "doc_type": "README",
+      "heading": "Структура",
+      "text": "| Модуль | Назначение |\n|---|---|\n| `main.py` | Точка входа, Telegram-бот (start/stop/status) |\n| `config.py` | Конфигурация из .env |\n| `core/router.py` | Логика входа/выхода, SL/TP, position sizing |\n| `core/indicators.py` | Технические индикаторы (MA, ATR, ADX, RSI, CI) |\n| `core/breadth_gate.py` | Режим рынка (CHOP/TREND) |\n| `core/bounce_prob.py` | Near-SL Guard — защита от срабатывания стопа (C17-A) |\n| `core/d1_watchlist.py` | D1-сканер для weekly watchlist (C17-B) |\n| `live/spot_loop.py` | Основной цикл SpotV2 (C16+) |\n| `live/exchange.py` | Адаптер биржи (paper/live) |\n| `live/bybit_feed.py` | Bybit OHLCV-фид |\n| `live/state.py` | PaperState: позиции, стейт, breadth gate |\n| `tg/bot.py` | Telegram-бот: handlers, callbacks, меню |\n| `strategies/` | Стратегии (S500, S51, S50, MR и др.) |\n| `tests/` | Тесты (pytest) |\n| `scripts/` | Скрипты (backtest, deploy, analysis) |\n| `reports/` | Отчёты (PDF, Excel) |\n| `logs/` | Логи (events.log, trades.csv, diagnostics.jsonl) |",
+      "score": 0.049
+    }
+  ],
+  "answer": "Near-SL Guard срабатывает, когда цена приближается к стоп-лоссу (меньше 0.5 ATR). Он уведомляет пользователя (через Telegram или другой интерфейс) с просьбой либо расширить SL, либо закрыть позицию.  \n\nКлючевые параметры:  \n- `sl_guard_enabled` — включает функцию (в `runtime_cfg.json`)  \n- `sl_guard_trigger_atr=0.5` — порог срабатывания (в ATR)  \n- `sl_guard_timeout_sec=90` — время ожидания решения пользователя  \n\nРеализована в `core/bounce_prob.py`, `live/spot_loop.py`, `live/state.py`, `tg/bot.py`.",
+  "needs_more_search": false,
+  "verification_passed": true,
+  "attempts": 1,
+  "trace": [
+    {
+      "node": "analyze_query",
+      "summary": "Сформировано 3 поисковых запросов",
+      "detail": {
+        "queries": [
+          "near-sl guard",
+          "TradeBot Bybit",
+          "стоп-лосс защита"
+        ]
+      },
+      "ts": "2026-09-15T21:26:17.337186+00:00"
+    },
+    {
+      "node": "search",
+      "summary": "Найдено 7 новых совпадений по 3 запрос(ам), всего в контексте 7",
+      "detail": {
+        "queries": [
+          "near-sl guard",
+          "TradeBot Bybit",
+          "стоп-лосс защита"
+        ],
+        "new_hits": 7
+      },
+      "ts": "2026-09-15T21:26:17.340907+00:00"
+    },
+    {
+      "node": "evaluate_results",
+      "summary": "Вердикт: достаточно контекста (попытка 1/3)",
+      "detail": {
+        "raw_verdict": "YES",
+        "attempts": 1
+      },
+      "ts": "2026-09-15T21:26:17.961498+00:00"
+    },
+    {
+      "node": "generate_answer",
+      "summary": "Ответ сгенерирован на основе найденного контекста",
+      "detail": {
+        "answer_preview": "Near-SL Guard срабатывает, когда цена приближается к стоп-лоссу (меньше 0.5 ATR). Он уведомляет пользователя (через Telegram или другой интерфейс) с просьбой либо расширить SL, либо закрыть позицию.  "
+      },
+      "ts": "2026-09-15T21:26:20.318471+00:00"
+    },
+    {
+      "node": "verify_answer",
+      "summary": "Верификация: PASS",
+      "detail": {
+        "raw_verdict": "PASS"
+      },
+      "ts": "2026-09-15T21:26:21.096964+00:00"
+    }
+  ],
+  "_elapsed_sec": 6.02
+}

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LangGraph Research Agent — запись выполнения</title>
+<style>
+:root {
+  --bg: #10131a; --panel: #171b24; --panel-raised: #1e2330; --border: #2a3040;
+  --text: #dbe1ec; --text-dim: #838fa3; --text-faint: #566078;
+  --accent: #6fa8c9; --accent-dim: #4a7691; --accent-glow: rgba(111,168,201,0.14);
+  --ok: #6bbf8a;
+  --mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+  --sans: 'Inter', -apple-system, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; background:var(--bg); color:var(--text); font-family:var(--sans); }
+body { background-image: radial-gradient(circle at 15% 0%, rgba(111,168,201,0.06), transparent 45%); }
+.wrap { max-width: 900px; margin:0 auto; padding: 48px 24px 80px; }
+.kicker { font-family: var(--mono); font-size:12.5px; color:var(--text-faint); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.kicker .dot { width:6px; height:6px; border-radius:50%; background:var(--accent); box-shadow:0 0 8px var(--accent); }
+h1 { font-size:26px; font-weight:600; margin:0 0 16px; letter-spacing:-0.01em; line-height:1.3; }
+h1 em { font-style:normal; color:var(--accent); }
+.question-box { background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:18px 20px; margin-bottom:24px; font-size:15px; }
+.question-box .q-label { font-family:var(--mono); font-size:11px; color:var(--text-faint); margin-bottom:8px; }
+.stats-row { display:flex; gap:18px; font-family:var(--mono); font-size:12px; color:var(--text-faint); margin-bottom:32px; flex-wrap:wrap; }
+.stats-row strong { color:var(--accent); font-weight:600; }
+h2 { font-size:13px; font-family:var(--mono); color:var(--text-faint); font-weight:500; margin: 36px 0 18px; text-transform:uppercase; letter-spacing:0.03em; }
+.trace-step { display:flex; gap:16px; }
+.step-marker { display:flex; flex-direction:column; align-items:center; }
+.step-dot { width:26px; height:26px; border-radius:50%; background:var(--accent-glow); border:1.5px solid var(--accent-dim); color:var(--accent); display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+.step-line { width:2px; flex:1; background:var(--border); margin:4px 0; }
+.step-body { padding-bottom:24px; flex:1; }
+.step-title { font-family:var(--mono); font-size:13.5px; font-weight:600; color:var(--text); margin-bottom:4px; }
+.step-summary { font-size:13.5px; color:var(--text-dim); line-height:1.5; }
+.step-detail { margin-top:10px; padding:10px 14px; background:var(--panel); border:1px solid var(--border); border-radius:8px; }
+.detail-row { display:flex; gap:8px; font-family:var(--mono); font-size:11px; padding:3px 0; }
+.detail-key { color:var(--text-faint); min-width:90px; flex-shrink:0; }
+.detail-val { color:var(--text-dim); word-break:break-word; }
+.answer-box { background:var(--panel); border:1px solid var(--accent-dim); border-radius:10px; padding:20px 22px; font-size:14.5px; line-height:1.65; white-space:pre-wrap; }
+.sources-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap:10px; }
+.source-card { background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:12px 14px; }
+.source-head { display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-bottom:6px; }
+.project-tag { font-family:var(--mono); font-size:10.5px; color:var(--accent); background:var(--accent-glow); padding:2px 7px; border-radius:5px; }
+.doc-tag { font-family:var(--mono); font-size:10.5px; color:var(--text-faint); }
+.heading { font-size:12.5px; font-weight:500; color:var(--text); }
+.source-score { font-family:var(--mono); font-size:11px; color:var(--text-faint); }
+footer { margin-top:48px; padding-top:24px; border-top:1px solid var(--border); color:var(--text-faint); font-size:12.5px; font-family:var(--mono); }
+footer a { color:var(--text-dim); text-decoration:none; }
+footer a:hover { color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker"><span class="dot"></span>LANGGRAPH RESEARCH AGENT — ЗАПИСЬ РЕАЛЬНОГО ВЫПОЛНЕНИЯ</div>
+  <h1>Stateful граф с <em>conditional routing</em> и циклом</h1>
+
+  <div class="question-box">
+    <div class="q-label">ВОПРОС</div>
+    Как работает Near-SL Guard в TradeBot?
+  </div>
+
+  <div class="stats-row">
+    <span>Шагов графа: <strong>5</strong></span>
+    <span>Итераций поиска: <strong>1</strong></span>
+    <span>Попыток: <strong>1</strong></span>
+    <span>Время выполнения: <strong>6.36с</strong></span>
+    <span>Модель: <strong>claude-haiku-4-5</strong></span>
+  </div>
+
+  <h2>ВЫПОЛНЕНИЕ ГРАФА</h2>
+  <div class="trace">
+    
+        <div class="trace-step">
+          <div class="step-marker">
+            <div class="step-dot">✓</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-title">Analyze Query</div>
+            <div class="step-summary">Сформировано 3 поисковых запросов</div>
+            <div class="step-detail"><div class="detail-row"><span class="detail-key">queries</span><span class="detail-val">[&quot;near-sl guard&quot;, &quot;TradeBot Bybit&quot;, &quot;стоп-лосс защита&quot;]</span></div></div>
+          </div>
+        </div>
+        <div class="trace-step">
+          <div class="step-marker">
+            <div class="step-dot">✓</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-title">Search</div>
+            <div class="step-summary">Найдено 7 новых совпадений по 3 запрос(ам), всего в контексте 7</div>
+            <div class="step-detail"><div class="detail-row"><span class="detail-key">queries</span><span class="detail-val">[&quot;near-sl guard&quot;, &quot;TradeBot Bybit&quot;, &quot;стоп-лосс защита&quot;]</span></div><div class="detail-row"><span class="detail-key">new_hits</span><span class="detail-val">7</span></div></div>
+          </div>
+        </div>
+        <div class="trace-step">
+          <div class="step-marker">
+            <div class="step-dot">✓</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-title">Evaluate Results</div>
+            <div class="step-summary">Вердикт: достаточно контекста (попытка 1/3)</div>
+            <div class="step-detail"><div class="detail-row"><span class="detail-key">raw_verdict</span><span class="detail-val">YES</span></div><div class="detail-row"><span class="detail-key">attempts</span><span class="detail-val">1</span></div></div>
+          </div>
+        </div>
+        <div class="trace-step">
+          <div class="step-marker">
+            <div class="step-dot">✓</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-body">
+            <div class="step-title">Generate Answer</div>
+            <div class="step-summary">Ответ сгенерирован на основе найденного контекста</div>
+            <div class="step-detail"><div class="detail-row"><span class="detail-key">answer_preview</span><span class="detail-val">Near-SL Guard срабатывает, когда цена приближается к стоп-лоссу на расстояние менее 0.5 ATR. В этом случае система уведомляет пользователя через Telegram с предложением либо расширить SL, либо закрыть</span></div></div>
+          </div>
+        </div>
+        <div class="trace-step">
+          <div class="step-marker">
+            <div class="step-dot">✓</div>
+            
+          </div>
+          <div class="step-body">
+            <div class="step-title">Verify Answer</div>
+            <div class="step-summary">Верификация: PASS</div>
+            <div class="step-detail"><div class="detail-row"><span class="detail-key">raw_verdict</span><span class="detail-val">PASS</span></div></div>
+          </div>
+        </div>
+  </div>
+
+  <h2>ОТВЕТ</h2>
+  <div class="answer-box">Near-SL Guard срабатывает, когда цена приближается к стоп-лоссу на расстояние менее 0.5 ATR. В этом случае система уведомляет пользователя через Telegram с предложением либо расширить SL, либо закрыть позицию. Уведомление появляется не чаще одного раза в 90 секунд. Функционал включён через `runtime_cfg.json` (`&quot;sl_guard_enabled&quot;: true`).</div>
+
+  <h2>ИСПОЛЬЗОВАННЫЕ ИСТОЧНИКИ (7)</h2>
+  <div class="sources-grid">
+    
+        <div class="source-card">
+          <div class="source-head">
+            <span class="project-tag">TradeBot Backtest</span>
+            <span class="doc-tag">README</span>
+            <span class="heading">Введение</span>
+          </div>
+          <div class="source-score">cosine 0.354</div>
+        </div>
+        <div class="source-card">
+          <div class="source-head">
+            <span class="project-tag">TradeBot Backtest</span>
+            <span class="doc-tag">ARCHITECTURE</span>
+            <span class="heading">Near-SL Guard (C17-A)</span>
+          </div>
+          <div class="source-score">cosine 0.336</div>
+        </div>
+        <div class="source-card">
+          <div class="source-head">
+            <span class="project-tag">TradeBot Backtest</span>
+            <span class="doc-tag">README</span>
+            <span class="heading">Статус</span>
+          </div>
+          <div class="source-score">cosine 0.304</div>
+        </div>
+        <div class="source-card">
+          <div class="source-head">
+            <span class="project-tag">TradeBot Backtest</span>
+            <span class="doc-tag">ARCHITECTURE</span>
+            <span class="heading">State: live/state.py (PaperState)</span>
+          </div>
+          <div class="source-score">cosine 0.220</div>
+        </div>
+        <div class="source-card">
+          <div class="source-head">
+            <span class="project-tag">TradeBot Backtest</span>
+            <span class="doc-tag">ARCHITECTURE</span>
+            <span class="heading">Backtest</span>
+          </div>
+          <div class="source-score">cosine 0.098</div>
+        </div>
+        <div class="source-card">
+          <div class="source-head">
+            <span class="project-tag">TradeBot Backtest</span>
+            <span class="doc-tag">ARCHITECTURE</span>
+            <span class="heading">Critical Files Reference</span>
+          </div>
+          <div class="source-score">cosine 0.074</div>
+        </div>
+        <div class="source-card">
+          <div class="source-head">
+            <span class="project-tag">TradeBot Backtest</span>
+            <span class="doc-tag">README</span>
+            <span class="heading">Структура</span>
+          </div>
+          <div class="source-score">cosine 0.049</div>
+        </div>
+  </div>
+
+  <footer>
+    Это запись реального выполнения LangGraph-агента (не имитация) — LLM-вызовы делались
+    напрямую через Anthropic API с локальным ключом. Страница статична и не выполняет
+    LLM-вызовов сама — безопасно публиковать на GitHub Pages без риска утечки ключа.
+    <br><br>
+    <a href="https://github.com/Talooren" target="_blank">github.com/Talooren →</a>
+  </footer>
+
+</div>
+</body>
+</html>

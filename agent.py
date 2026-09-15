@@ -22,9 +22,6 @@ LangGraph Research Agent — мини-агент, отвечающий на во
 Ключ читается только из переменной окружения / .env — никогда не хардкодится
 и не появляется в записанном трейсе выполнения.
 """
-from dotenv import load_dotenv
-load_dotenv()  # Загружает переменные из .env в окружение ДО всего остального
-
 import json
 import os
 import sys
@@ -33,7 +30,10 @@ from datetime import datetime, timezone
 from typing import TypedDict
 
 from langgraph.graph import StateGraph, END
-from langchain_anthropic import ChatAnthropic
+from langchain_openai import ChatOpenAI
+
+from dotenv import load_dotenv
+load_dotenv()  # Загружает переменные из .env в окружение
 
 from retriever import load_index
 
@@ -65,14 +65,20 @@ def _log_step(state: ResearchState, node: str, summary: str, detail: dict | None
     })
 
 
-def get_llm() -> ChatAnthropic:
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
+def get_llm() -> ChatOpenAI:
+    api_key = os.environ.get("OPENROUTER_API_KEY")
     if not api_key:
         raise RuntimeError(
-            "ANTHROPIC_API_KEY не найден в окружении. "
-            "Задайте его через `export ANTHROPIC_API_KEY=...` или файл .env (не коммитить!)."
+            "OPENROUTER_API_KEY не найден в окружении. "
+            "Задайте его через `export OPENROUTER_API_KEY=...` или файл .env (не коммитить!)."
         )
-    return ChatAnthropic(model=MODEL_NAME, temperature=0, max_tokens=1024)
+    return ChatOpenAI(
+        model="qwen/qwen3-coder-next",
+        temperature=0,
+        max_tokens=1024,
+        base_url="https://openrouter.ai/api/v1",
+        api_key=api_key
+    )
 
 
 _INDEX = None
