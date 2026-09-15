@@ -142,7 +142,7 @@ footer a:hover {{ color:var(--accent); }}
     <span>Итераций поиска: <strong>{searches_count}</strong></span>
     <span>Попыток: <strong>{attempts}</strong></span>
     <span>Время выполнения: <strong>{elapsed}с</strong></span>
-    <span>Модель: <strong>claude-haiku-4-5</strong></span>
+    <span>Модель: <strong>qwen3-coder-next</strong></span>
   </div>
 
   <h2>ВЫПОЛНЕНИЕ ГРАФА</h2>
@@ -160,7 +160,7 @@ footer a:hover {{ color:var(--accent); }}
 
   <footer>
     Это запись реального выполнения LangGraph-агента (не имитация) — LLM-вызовы делались
-    напрямую через Anthropic API с локальным ключом. Страница статична и не выполняет
+    напрямую через OpenRouter API с локальным ключом. Страница статична и не выполняет
     LLM-вызовов сама — безопасно публиковать на GitHub Pages без риска утечки ключа.
     <br><br>
     <a href="https://github.com/Talooren" target="_blank">github.com/Talooren →</a>

@@ -25,8 +25,8 @@ analyze_query → search → evaluate_results ─┬─ (нет) → rewrite_que
 
 ```bash
 pip install -r requirements.txt
-cp .env.example .env   # впишите свой ANTHROPIC_API_KEY
-export ANTHROPIC_API_KEY=...
+cp .env.example .env   # впишите свой OPENROUTER_API_KEY
+export OPENROUTER_API_KEY=...
 
 python agent.py "Как работает Near-SL Guard в TradeBot?"
 python render_trace.py   # last_run.json -> trace.html
@@ -40,7 +40,7 @@ API-ключ читается только из переменной окруж�
 
 - Python 3.11+
 - LangGraph (StateGraph, conditional edges, TypedDict state)
-- LangChain + Anthropic API (`claude-haiku-4-5`)
+- LangChain + OpenRouter API (`qwen/qwen3-coder-next`)
 - TF-IDF retrieval собственной реализации (без внешних ML-библиотек)
 
 ## 📦 Статус

@@ -65,8 +65,8 @@ footer a:hover { color:var(--accent); }
     <span>Шагов графа: <strong>5</strong></span>
     <span>Итераций поиска: <strong>1</strong></span>
     <span>Попыток: <strong>1</strong></span>
-    <span>Время выполнения: <strong>6.36с</strong></span>
-    <span>Модель: <strong>claude-haiku-4-5</strong></span>
+    <span>Время выполнения: <strong>6.02с</strong></span>
+    <span>Модель: <strong>qwen3-coder-next</strong></span>
   </div>
 
   <h2>ВЫПОЛНЕНИЕ ГРАФА</h2>
@@ -113,7 +113,7 @@ footer a:hover { color:var(--accent); }
           <div class="step-body">
             <div class="step-title">Generate Answer</div>
             <div class="step-summary">Ответ сгенерирован на основе найденного контекста</div>
-            <div class="step-detail"><div class="detail-row"><span class="detail-key">answer_preview</span><span class="detail-val">Near-SL Guard срабатывает, когда цена приближается к стоп-лоссу на расстояние менее 0.5 ATR. В этом случае система уведомляет пользователя через Telegram с предложением либо расширить SL, либо закрыть</span></div></div>
+            <div class="step-detail"><div class="detail-row"><span class="detail-key">answer_preview</span><span class="detail-val">Near-SL Guard срабатывает, когда цена приближается к стоп-лоссу (меньше 0.5 ATR). Он уведомляет пользователя (через Telegram или другой интерфейс) с просьбой либо расширить SL, либо закрыть позицию.  </span></div></div>
           </div>
         </div>
         <div class="trace-step">
@@ -130,7 +130,14 @@ footer a:hover { color:var(--accent); }
   </div>
 
   <h2>ОТВЕТ</h2>
-  <div class="answer-box">Near-SL Guard срабатывает, когда цена приближается к стоп-лоссу на расстояние менее 0.5 ATR. В этом случае система уведомляет пользователя через Telegram с предложением либо расширить SL, либо закрыть позицию. Уведомление появляется не чаще одного раза в 90 секунд. Функционал включён через `runtime_cfg.json` (`&quot;sl_guard_enabled&quot;: true`).</div>
+  <div class="answer-box">Near-SL Guard срабатывает, когда цена приближается к стоп-лоссу (меньше 0.5 ATR). Он уведомляет пользователя (через Telegram или другой интерфейс) с просьбой либо расширить SL, либо закрыть позицию.  
+
+Ключевые параметры:  
+- `sl_guard_enabled` — включает функцию (в `runtime_cfg.json`)  
+- `sl_guard_trigger_atr=0.5` — порог срабатывания (в ATR)  
+- `sl_guard_timeout_sec=90` — время ожидания решения пользователя  
+
+Реализована в `core/bounce_prob.py`, `live/spot_loop.py`, `live/state.py`, `tg/bot.py`.</div>
 
   <h2>ИСПОЛЬЗОВАННЫЕ ИСТОЧНИКИ (7)</h2>
   <div class="sources-grid">
@@ -195,7 +202,7 @@ footer a:hover { color:var(--accent); }
 
   <footer>
     Это запись реального выполнения LangGraph-агента (не имитация) — LLM-вызовы делались
-    напрямую через Anthropic API с локальным ключом. Страница статична и не выполняет
+    напрямую через OpenRouter API с локальным ключом. Страница статична и не выполняет
     LLM-вызовов сама — безопасно публиковать на GitHub Pages без риска утечки ключа.
     <br><br>
     <a href="https://github.com/Talooren" target="_blank">github.com/Talooren →</a>
